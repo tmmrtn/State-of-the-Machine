@@ -13,7 +13,7 @@ public class HeroStateRun : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             animator.SetBool("Running", false);
         }
