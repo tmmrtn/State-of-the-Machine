@@ -1,2 +1,2 @@
 # State of the Machine
- Unity 2D Animation Experiment
+ Experimental. Using the Unity built-in state machines for animation.
