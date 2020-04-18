@@ -19,7 +19,7 @@ public class HeroStateJump : StateMachineBehaviour
             animator.SetBool("Jumping", false);
             //animator.SetBool("Idling", true);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             //animator.SetBool("Jumping", false);
             animator.SetBool("Shooting", true);

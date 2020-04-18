@@ -17,11 +17,11 @@ public class HeroStateRun : StateMachineBehaviour
         {
             animator.SetBool("Running", false);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             animator.SetBool("Shooting", true);
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetBool("Jumping", true);
         }

@@ -6,9 +6,12 @@
  
  Use:
  
- W,A,S,D --- Move left/right jump slide
+ A, D --- Run left/right
+ 
+ S --- Slide (when running left or right)
  
  E --- Melee
  
- Space --- Shoot
+ F --- Shoot
  
+ Space --- Jump

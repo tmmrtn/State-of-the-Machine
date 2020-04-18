@@ -14,7 +14,7 @@ public class HeroStateIdle : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Got Space While Idle");
             animator.SetBool("Jumping", true);
@@ -24,7 +24,7 @@ public class HeroStateIdle : StateMachineBehaviour
         {
             animator.SetBool("Meleeing", true);
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.F))
         {
             animator.SetBool("Shooting", true);
         }
