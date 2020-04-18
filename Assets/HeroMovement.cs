@@ -5,17 +5,18 @@ using UnityEngine;
 public class HeroMovement : MonoBehaviour
 {
     Rigidbody2D rb;
-    bool facingRight;
-    bool feetOnFloor;
-    bool bodyTouchingCollider;
-    CapsuleCollider2D footBox;
-    BoxCollider2D[] bodyBox;
+    bool facingRight;                   //used for making the hero face the proper way when player presses left/right
+    bool feetOnFloor;                   //used to prevent double/tripple jumping 
+    bool bodyTouchingCollider;          // used to determine of the body is touching a wall. Without this the player can get stuck in corners 
+                                
+    CapsuleCollider2D footBox;          //Seperate collider for the feet to detect feet touching floor
+    BoxCollider2D[] bodyBox;            //seperate collider for the body to detect touching walls. there are 2 hence the array.
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        footBox = gameObject.GetComponent<CapsuleCollider2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();                //Rigid body for hero
+        footBox = gameObject.GetComponent<CapsuleCollider2D>(); 
         bodyBox = gameObject.GetComponents<BoxCollider2D>();
         facingRight = true;
         feetOnFloor = false;
@@ -25,10 +26,12 @@ public class HeroMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check once per loop for the hero touching floor and walls
         feetOnFloor = FeetOnFloor();
         bodyTouchingCollider = BodyTouchingCollider();
 
-        if(Input.GetKey(KeyCode.D) && (feetOnFloor || bodyTouchingCollider))
+        //process user input
+        if(Input.GetKey(KeyCode.D) && (feetOnFloor || bodyTouchingCollider))    //Move right if touching floor or wall and key pressed
         {
             if(!facingRight)
             {
@@ -42,7 +45,7 @@ public class HeroMovement : MonoBehaviour
             }
             rb.AddForce(new Vector2(2, 0));
         }
-        if (Input.GetKey(KeyCode.A) && (feetOnFloor || bodyTouchingCollider))
+        if (Input.GetKey(KeyCode.A) && (feetOnFloor || bodyTouchingCollider))   //Move left if touching floor or wall and key pressed
         {
             if (facingRight)
             {
@@ -56,7 +59,7 @@ public class HeroMovement : MonoBehaviour
             }
             rb.AddForce(new Vector2(-2, 0));
         }
-        if (Input.GetKeyDown(KeyCode.Space) && feetOnFloor)
+        if (Input.GetKeyDown(KeyCode.Space) && feetOnFloor)         //Jump if space spressed and feet are on floor
         {
             rb.AddForce(new Vector2(0, 0.8f), ForceMode2D.Impulse);
         }
