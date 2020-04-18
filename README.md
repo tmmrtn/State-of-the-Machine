@@ -1,7 +1,7 @@
 # State of the Machine
  Experimental. Using the Unity built-in state machines for animation.
  
- Using Unity 2019.3.2f1
+ Using Unity 2019.3.10f1
  
  
  Use:
