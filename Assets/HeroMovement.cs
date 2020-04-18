@@ -30,7 +30,7 @@ public class HeroMovement : MonoBehaviour
         feetOnFloor = FeetOnFloor();
         bodyTouchingCollider = BodyTouchingCollider();
         //Slow the hero quickly if not pressing left/right
-        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && (feetOnFloor)) //|| bodyTouchingCollider))
+        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.Space) && (feetOnFloor)) //|| bodyTouchingCollider))
         {
             rb.AddRelativeForce(-1 * rb.velocity);
         }
@@ -48,8 +48,11 @@ public class HeroMovement : MonoBehaviour
                 theScale.x *= -1;
                 transform.localScale = theScale;
             }
-            //rb.AddForce(new Vector2(2, 0));
-            rb.AddRelativeForce(new Vector2(1, 0) * 10 - rb.velocity);
+            // new Vector2(1, 0)       ... Add force to the right
+            // * 6                    ... power of the force
+            // - (rb.velocity          ... Subtract the player velocity, so that the faster the player goes, the less force we add. This produces a constant speed
+            // * new Vector2(1, 0)     ... This cancels the Y axis of the velocity moderation, because the Y axis (jump) is affected only by an impulse force and doeasn't need to be moderated
+            rb.AddRelativeForce(new Vector2(1, 0) * 6 - (rb.velocity * new Vector2(1, 0)));
 
         }
         if (Input.GetKey(KeyCode.A) && (feetOnFloor || bodyTouchingCollider))   //Move left if touching floor or wall and key pressed
@@ -64,12 +67,15 @@ public class HeroMovement : MonoBehaviour
                 theScale.x *= -1;
                 transform.localScale = theScale;
             }
-            //rb.AddForce(new Vector2(-2, 0));
-            rb.AddRelativeForce(new Vector2(-1, 0) * 10 - rb.velocity);
+            // new Vector2(-1, 0)      ... Add force to the left
+            // * 6                    ... power of the force
+            // - (rb.velocity          ... Subtract the player velocity, so that the faster the player goes, the less force we add. This produces a constant speed
+            // * new Vector2(1, 0)     ... This cancels the Y axis of the velocity moderation, because the Y axis (jump) is affected only by an impulse force and doeasn't need to be moderated
+            rb.AddRelativeForce(new Vector2(-1, 0) * 6 - (rb.velocity * new Vector2(1, 0)));
         }
         if (Input.GetKeyDown(KeyCode.Space) && feetOnFloor)         //Jump if space spressed and feet are on floor
         {
-            rb.AddForce(new Vector2(0, 0.8f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, 0.7f), ForceMode2D.Impulse);
         }
     }
 
