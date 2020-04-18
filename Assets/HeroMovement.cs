@@ -29,9 +29,14 @@ public class HeroMovement : MonoBehaviour
         //check once per loop for the hero touching floor and walls
         feetOnFloor = FeetOnFloor();
         bodyTouchingCollider = BodyTouchingCollider();
+        //Slow the hero quickly if not pressing left/right
+        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && (feetOnFloor)) //|| bodyTouchingCollider))
+        {
+            rb.AddRelativeForce(-1 * rb.velocity);
+        }
 
         //process user input
-        if(Input.GetKey(KeyCode.D) && (feetOnFloor || bodyTouchingCollider))    //Move right if touching floor or wall and key pressed
+        if (Input.GetKey(KeyCode.D) && (feetOnFloor || bodyTouchingCollider))    //Move right if touching floor or wall and key pressed
         {
             if(!facingRight)
             {
@@ -43,7 +48,9 @@ public class HeroMovement : MonoBehaviour
                 theScale.x *= -1;
                 transform.localScale = theScale;
             }
-            rb.AddForce(new Vector2(2, 0));
+            //rb.AddForce(new Vector2(2, 0));
+            rb.AddRelativeForce(new Vector2(1, 0) * 10 - rb.velocity);
+
         }
         if (Input.GetKey(KeyCode.A) && (feetOnFloor || bodyTouchingCollider))   //Move left if touching floor or wall and key pressed
         {
@@ -57,7 +64,8 @@ public class HeroMovement : MonoBehaviour
                 theScale.x *= -1;
                 transform.localScale = theScale;
             }
-            rb.AddForce(new Vector2(-2, 0));
+            //rb.AddForce(new Vector2(-2, 0));
+            rb.AddRelativeForce(new Vector2(-1, 0) * 10 - rb.velocity);
         }
         if (Input.GetKeyDown(KeyCode.Space) && feetOnFloor)         //Jump if space spressed and feet are on floor
         {
